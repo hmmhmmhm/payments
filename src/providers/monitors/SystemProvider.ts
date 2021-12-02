@@ -1,7 +1,7 @@
 import fs from "fs";
 import * as git from "git-last-commit";
 import { Singleton } from "tstl/thread/Singleton";
-import { randint } from "tstl/algorithm/random";
+import { v4 } from "uuid";
 
 import { ISystem } from "../../api/structures/monitors/ISystem";
 
@@ -10,7 +10,7 @@ import { DateUtil } from "../../utils/DateUtil";
 
 export class SystemProvider
 {
-    public static readonly uid: number = randint(0, Number.MAX_SAFE_INTEGER);
+    public static readonly uid: string = v4();
     public static readonly created_at: Date = new Date();
 
     public static package(): Promise<ISystem.IPackage>
@@ -24,6 +24,7 @@ export class SystemProvider
     }
 }
 
+// LOAD COMMITS & PACKAGES
 const commit_: Singleton<Promise<ISystem.ICommit>> = new Singleton
 (
     () => new Promise((resolve, reject) =>

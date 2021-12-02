@@ -12,10 +12,20 @@ import { DomainError } from "tstl/exception/DomainError";
 import { InvalidArgument } from "tstl/exception/InvalidArgument";
 import { OutOfRange } from "tstl/exception/OutOfRange";
 
+import { IIamportUser } from "iamport-server-api/lib/structures/IIamportUser";
+
 import { SGlobal } from "./SGlobal";
 
+/**
+ * 통합 결제 서버 설정 정보.
+ * 
+ * @author Samchon
+ */
 export class Configuration
 {
+    /**
+     * 통합 결제 서버의 마스터 IP.
+     */
     public static get MASTER_IP(): string
     {
         if (SGlobal.mode === "LOCAL")
@@ -26,6 +36,9 @@ export class Configuration
             return "YOUR-REAL-SERVER-HOST";
     }
 
+    /**
+     * DB 접속 정보.
+     */
     public static get DB_CONFIG(): MysqlConnectionOptions
     {
         const account: string = (SGlobal.mode === "LOCAL") ? "root" : "bbs_w";
@@ -40,7 +53,7 @@ export class Configuration
             port: 3306,
             username: account,
             password: (SGlobal.mode === "LOCAL") ? "root" : Configuration.SYSTEM_PASSWORD,
-            database: "test_db_schema",
+            database: "payments",
 
             // OPTIONS
             namingStrategy: new safe.SnakeCaseStrategy(),
@@ -64,6 +77,35 @@ export namespace Configuration
     export const ASSETS = __dirname + "/../assets";
     export const CREATED_AT: Date = new Date();
     export const SYSTEM_PASSWORD: string = "https://github.com/samchon";
+
+    export function toss_secret_key(storeId: string): string
+    {
+        storeId;
+        if (SGlobal.mode === "REAL")
+            return "YOUR-REAL-SECRET-KEY";
+        else
+            return "test_ak_ZORzdMaqN3wQd5k6ygr5AkYXQGwy";
+    }
+
+    export function iamport_user_accessor(storeId: string): IIamportUser.IAccessor
+    {
+        storeId;
+        if (SGlobal.mode === "LOCAL")
+            return {
+                imp_key: "YOUR-LOCAL-IMP-KEY",
+                imp_secret: "YOUR-LOCAL-IMP-SECRET"
+            };
+        else if (SGlobal.mode === "DEV")
+            return {
+                imp_key: "YOUR-DEV-IMP-KEY",
+                imp_secret: "YOUR-DEV-IMP-SECRET"
+            };
+        else
+            return {
+                imp_key: "YOUR-REAL-IMP-KEY",
+                imp_secret: "YOUR-REAL-IMP-SECRET"
+            };
+    }
 }
 
 // CUSTOM EXCEPTIION CONVERSION

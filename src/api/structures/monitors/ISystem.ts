@@ -13,7 +13,7 @@ export interface ISystem
     /**
      * Random Unique ID.
      */
-    uid: number;
+    uid: string;
 
     /**
      * `process.argv`

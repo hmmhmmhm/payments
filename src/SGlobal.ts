@@ -43,6 +43,8 @@ export namespace SGlobal
         await connector.connect(`ws://${Configuration.MASTER_IP}:${Configuration.UPDATOR_PORT}/api`);
         return connector;
     });
+    
+    export let testing: boolean = false;
 }
 
 let mode_: "LOCAL" | "DEV" | "REAL" = "LOCAL";
