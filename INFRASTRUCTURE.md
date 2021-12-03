@@ -1,13 +1,13 @@
 # INTRASTRUCTURE
 ## 1. DBMS
 ### 1.1. RDB Instance
-[`@${ORGANIZATION}/${PROJECT}`](https://github.com/samchon/backend) is using the `MariaDB@10.5` as its DBMS.
+[`@samchon/payments-backend`](https://github.com/samchon/backend) is using the `MariaDB@10.5` as its DBMS.
 
 Also, the accounts of the DBMS are separated to the `readonly` and `writable`. In the policy, `writable` account only can be used in automated program like the backend server. The developer or someone else need to connect to the DBMS directly, they're allowed to use only the `readonly` account.
 
 ```sql
 -- CREATE SCHEMA WITH STRICT MODE
-CREATE SCHEMA test_db_schema DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE SCHEMA payments DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 SET GLOBAL sql_mode = CONCAT_WS(',',
     'IGNORE_SPACE',
     'ONLY_FULL_GROUP_BY',
@@ -38,12 +38,12 @@ GRANT SELECT,
     CREATE ROUTINE, 
     ALTER ROUTINE, 
     EXECUTE 
-ON test_db_schema.* TO writable_account;
+ON payments.* TO writable_account;
 
 -- READONLY ACCOUNT
 CREATE USER readonly_account;
 SET password FOR readonly_account = PASSWORD('Some Password');
-GRANT SELECT, EXECUTE ON test_db_schema.* TO readonly_account;
+GRANT SELECT, EXECUTE ON payments.* TO readonly_account;
 
 -- FINALIZATION
 FLUSH PRIVILEGES;
@@ -66,11 +66,11 @@ sudo vi /etc/mysql/mariadb.conf.d/50-server.cnf # Disable bind-address
 sudo service mysql restart
 ```
 
-After the install, open the MariaDB terminal and create the new schema `test_db_schema`. Also, you must separate accounts of the MariaDB to `readonly` and `writable`. In the policy, `writable` account only can be used in automated program like the backend server. The developer or someone else need to connect to the DBMS directly, they're allowed to use only the `readonly` account.
+After the install, open the MariaDB terminal and create the new schema `payments`. Also, you must separate accounts of the MariaDB to `readonly` and `writable`. In the policy, `writable` account only can be used in automated program like the backend server. The developer or someone else need to connect to the DBMS directly, they're allowed to use only the `readonly` account.
 
 ```sql
 -- CREATE SCHEMA WITH STRICT MODE
-CREATE SCHEMA test_db_schema 
+CREATE SCHEMA payments 
     DEFAULT CHARACTER SET utf8mb4 
     COLLATE utf8mb4_unicode_ci;
 SET GLOBAL sql_mode = 'ANSI,TRADITIONAL';
@@ -94,7 +94,7 @@ GRANT SELECT,
     CREATE ROUTINE, 
     ALTER ROUTINE, 
     EXECUTE 
-ON test_db_schema.* TO writable_account;
+ON payments.* TO writable_account;
 
 -- READONLY ACCOUNT
 CREATE USER readonly_account;
@@ -151,7 +151,7 @@ sudo sysctl net.core.somaxconn=2048
 # CLONE REPOSITORY
 git config --global credential.helper store
 git clone https://github.com/samchon/backend
-cd ${PROJECT}
+cd payments-backend
 
 # INSTALL PROJECT
 npm install

@@ -8,6 +8,9 @@ import { IPaymentWebhook } from "../../api/structures/IPaymentWebhook";
 
 import { PaymentHistory } from "../../models/PaymentHistory";
 
+import { IamportPaymentService } from "../../services/iamport/IamportPaymentService";
+import { TossPaymentService } from "../../services/toss/TossPaymentService";
+
 export namespace PaymentHistoryProvider
 {
     /* -----------------------------------------------------------
@@ -123,7 +126,8 @@ export namespace PaymentHistoryProvider
             const data = await IamportPaymentService.approve
             (
                 input.vendor.store_id,
-                input.vendor.uid, 
+                input.vendor.uid,
+                input.source.id,
                 input.price
             );
             return [data, IamportPaymentService.parse(data)];

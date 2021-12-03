@@ -11,7 +11,7 @@ export namespace TossPaymentVirtualAccountService
             input: ITossVirtualAccountPayment.IStore
         ): Promise<ITossVirtualAccountPayment>
     {
-        return toss.functional.virtual_accounts.store
+        return toss.functional.v1.virtual_accounts.store
         (
             TossAsset.connection(storeId),
             input

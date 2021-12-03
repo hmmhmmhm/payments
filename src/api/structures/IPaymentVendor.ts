@@ -6,7 +6,7 @@ export interface IPaymentVendor<Code extends IPaymentVendor.Code>
     code: Code;
 
     /**
-     * 벤더사가 전달해준 주문 식별자 번호
+     * 벤더사가 전달해준 식별자 번호.
      */
     uid: string;
 

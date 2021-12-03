@@ -1,42 +1,52 @@
+import { IIamportSubscription } from "iamport-server-api/lib/structures/IIamportSubscription";
 import { ITossBilling } from "toss-payments-server-api/lib/structures/ITossBilling";
 
 import { IPaymentSource } from "./IPaymentSource";
 import { IPaymentVendor } from "./IPaymentVendor";
 
-export interface IPaymentReservation
-{
-    /**
-     * Primary Key.
-     */
-    id: string;
-
-    /**
-     * 벤더사.
-     */
-    vendor: IPaymentVendor<"toss.payments">;
-
-    /**
-     * 대상 액터의 참조 정보.
-     */
-    source: IPaymentSource;
-
-    /**
-     * 제목.
-     */
-    title: string;
-
-    /**
-     * 벤더사 데이터.
-     */
-    data: ITossBilling;
-
-    /**
-     * 레코드 생성 일시.
-     */
-    created_at: string;
-}
+export type IPaymentReservation = IPaymentReservation.IamportType | IPaymentReservation.TossType;
 export namespace IPaymentReservation
 {
+    export type IamportType = BaseType<"iamport", IIamportSubscription>;
+    export type TossType = BaseType<"toss.payments", ITossBilling>;
+
+    export interface BaseType<
+        VendorCode extends IPaymentVendor.Code,
+        Data extends object>
+    {
+        /**
+         * Primary Key.
+         */
+        id: string;
+
+        vendor_code: VendorCode;
+
+        /**
+         * 벤더사.
+         */
+        vendor: IPaymentVendor<VendorCode>;
+    
+        /**
+         * 대상 액터의 참조 정보.
+         */
+        source: IPaymentSource;
+    
+        /**
+         * 제목.
+         */
+        title: string;
+    
+        /**
+         * 벤더사 데이터.
+         */
+        data: Data;
+    
+        /**
+         * 레코드 생성 일시.
+         */
+        created_at: string;
+    }
+
     export interface IStore
     {
         /**
@@ -45,7 +55,7 @@ export namespace IPaymentReservation
         vendor: IPaymentVendor<"toss.payments">;
 
         /**
-         * 대상 액터의 참조 정보.
+         * 원천 레코드 정보.
          */
         source: IPaymentSource;
 
@@ -53,13 +63,6 @@ export namespace IPaymentReservation
          * 제목
          */
         title: string;
-
-        /**
-         * 저장할 결제 정보.
-         * 
-         * 현재는 토스 페이먼츠만 사용하니, 토스 페이먼츠에 기록할 고객의 카드 정보.
-         */
-        data: Omit<ITossBilling.IAccessor, "customerKey">;
 
         /**
          * 간편결제 비밀번호.

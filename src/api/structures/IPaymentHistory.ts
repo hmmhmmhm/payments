@@ -4,47 +4,12 @@ import { ITossPayment } from "toss-payments-server-api/lib/structures/ITossPayme
 import { IPaymentSource } from "./IPaymentSource";
 import { IPaymentVendor } from "./IPaymentVendor";
 
-export type IPaymentHistory 
-    = IPaymentHistory.IamportType 
-    | IPaymentHistory.TossType;
-
+export type IPaymentHistory = IPaymentHistory.IamportType | IPaymentHistory.TossType;
 export namespace IPaymentHistory
 {
-    /**
-     * 결제 입력 정보.
-     * 
-     * SDK 에서 받은 데이터를 취합하여 결제 진행 상황을 서버에 알려준다. 
-     */
-    export interface IStore
-    {
-        /**
-         * 벤더사 정보
-         */
-        vendor: IPaymentVendor<"iamport" | "toss.payments">;
-
-        /**
-         * 결제의 근간이 된 원천 레코드 정보.
-         */
-        source: IPaymentSource;
-
-        /**
-         * 결제 정보가 갱신되었을 때, 이를 수신할 URL
-         */
-        webhook_url: string;
-
-        /**
-         * 결제되어야 할 총액.
-         * 
-         * 실 결제금액과 비교하여 이와 다를 시, 422 에러가 리턴됨.
-         */
-        price: number;
-
-        /**
-         * 레코드 열람에 사용할 비밀번호 설정.
-         */
-        password: string;
-    }
-
+    export type IamportType = BaseType<"iamport", IIamportPayment>;
+    export type TossType = BaseType<"toss.payments", ITossPayment>;
+    
     export interface BaseType<
             VendorCode extends IPaymentVendor.Code, 
             Data extends object>
@@ -110,8 +75,41 @@ export namespace IPaymentHistory
          */
         cancelled_at: string | null;
     }
-    export type IamportType = BaseType<"iamport", IIamportPayment>;
-    export type TossType = BaseType<"toss.payments", ITossPayment>;
+
+    /**
+     * 결제 입력 정보.
+     * 
+     * SDK 에서 받은 데이터를 취합하여 결제 진행 상황을 서버에 알려준다. 
+     */
+    export interface IStore
+    {
+        /**
+         * 벤더사 정보
+         */
+        vendor: IPaymentVendor<"iamport" | "toss.payments">;
+
+        /**
+         * 결제의 근간이 된 원천 레코드 정보.
+         */
+        source: IPaymentSource;
+
+        /**
+         * 결제 정보가 갱신되었을 때, 이를 수신할 URL
+         */
+        webhook_url: string;
+
+        /**
+         * 결제되어야 할 총액.
+         * 
+         * 실 결제금액과 비교하여 이와 다를 시, 422 에러가 리턴됨.
+         */
+        price: number;
+
+        /**
+         * 레코드 열람에 사용할 비밀번호 설정.
+         */
+        password: string;
+    }
 
     /**
      * @internal

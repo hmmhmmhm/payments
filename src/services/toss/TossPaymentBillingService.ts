@@ -12,7 +12,7 @@ export namespace TossPaymentBillingService
             input: ITossBilling.IStore
         ): Promise<ITossBilling>
     {
-        return toss.functional.billing.authorizations.card.store
+        return toss.functional.v1.billing.authorizations.card.store
         (
             TossAsset.connection(mid),
             input
@@ -25,7 +25,7 @@ export namespace TossPaymentBillingService
             input: ITossBilling.IAccessor
         ): Promise<ITossBilling>
     {
-        return toss.functional.billing.authorizations.at
+        return toss.functional.v1.billing.authorizations.at
         (
             TossAsset.connection(mid), 
             input.authKey,
@@ -39,7 +39,7 @@ export namespace TossPaymentBillingService
             input: ITossBilling.IPaymentStore
         ): Promise<ITossPayment>
     {
-        return toss.functional.billing.pay
+        return toss.functional.v1.billing.pay
         (
             TossAsset.connection(mid), 
             input.billingKey,

@@ -1,8 +1,8 @@
-import FakeIamport from "fake-iamport-server";
+import fake from "fake-iamport-server";
 import imp from "iamport-server-api";
 import { VariadicSingleton } from "tstl/thread/VariadicSingleton";
-import { Configuration } from "../../Configuration";
 
+import { Configuration } from "../../Configuration";
 import { SGlobal } from "../../SGlobal";
 
 export namespace IamportAsset
@@ -24,7 +24,7 @@ export namespace IamportAsset
             if (testing === true)
                 return new imp.IamportConnector
                 (
-                    `http://127.0.0.1:${FakeIamport.Configuration.API_PORT}`,
+                    `http://127.0.0.1:${fake.FakeIamportConfiguration.API_PORT}`,
                     {
                         imp_key: "test_imp_key",
                         imp_secret: "test_imp_secret"

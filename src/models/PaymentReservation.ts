@@ -14,9 +14,6 @@ export class PaymentReservation
     /* -----------------------------------------------------------
         COLUMNS
     ----------------------------------------------------------- */
-    @orm.PrimaryGeneratedColumn("uuid")
-    public readonly id!: string;
-
     @orm.Column("varchar")
     public readonly title!: string;
 }

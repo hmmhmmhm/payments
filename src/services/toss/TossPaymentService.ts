@@ -20,7 +20,7 @@ export namespace TossPaymentService
     {
         try
         {
-            return await toss.functional.payments.at
+            return await toss.functional.v1.payments.at
             (
                 TossAsset.connection(storeId),
                 paymentKey,
@@ -42,7 +42,7 @@ export namespace TossPaymentService
     {
         try
         {
-            return await toss.functional.payments.approve
+            return await toss.functional.v1.payments.approve
             (
                 TossAsset.connection(storeId),
                 paymentKey,
@@ -93,7 +93,7 @@ export namespace TossPaymentService
             input: ITossPaymentCancel.IStore
         ): Promise<ITossPayment>
     {
-        return toss.functional.payments.cancel
+        return toss.functional.v1.payments.cancel
         (
             TossAsset.connection(storeId),
             input.paymentKey,

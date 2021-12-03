@@ -11,7 +11,7 @@ export namespace TossPaymentCardService
             input: ITossCardPayment.IStore
         ): Promise<ITossCardPayment>
     {
-        return toss.functional.payments.key_in
+        return toss.functional.v1.payments.key_in
         (
             TossAsset.connection(mid),
             input
