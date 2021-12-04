@@ -21,7 +21,7 @@ import { SGlobal } from "./SGlobal";
  * 
  * @author Samchon
  */
-export class Configuration
+export class PaymentConfiguration
 {
     /**
      * 통합 결제 서버의 마스터 IP.
@@ -41,7 +41,7 @@ export class Configuration
      */
     public static get DB_CONFIG(): MysqlConnectionOptions
     {
-        const account: string = (SGlobal.mode === "LOCAL") ? "root" : "bbs_w";
+        const account: string = (SGlobal.mode === "LOCAL") ? "root" : "payments_w";
         const host: string = (SGlobal.mode === "REAL")
             ? "YOUR-RDS-ADDRESS"
             : "127.0.0.1";
@@ -52,7 +52,7 @@ export class Configuration
             host: host,
             port: 3306,
             username: account,
-            password: (SGlobal.mode === "LOCAL") ? "root" : Configuration.SYSTEM_PASSWORD,
+            password: (SGlobal.mode === "LOCAL") ? "root" : PaymentConfiguration.SYSTEM_PASSWORD,
             database: "payments",
 
             // OPTIONS
@@ -64,7 +64,7 @@ export class Configuration
     }
 }
 
-export namespace Configuration
+export namespace PaymentConfiguration
 {
     export const API_PORT = 37001;
     export const UPDATOR_PORT = 37000;

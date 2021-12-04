@@ -50,7 +50,7 @@ export namespace IPaymentReservation
     export interface IStore
     {
         /**
-         * 벤더사.
+         * 벤더사 정보.
          */
         vendor: IPaymentVendor<"toss.payments">;
 

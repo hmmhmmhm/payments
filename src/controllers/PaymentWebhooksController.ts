@@ -3,10 +3,11 @@ import * as nest from "@nestjs/common";
 
 import { IIamportPayment } from "iamport-server-api/lib/structures/IIamportPayment";
 import { ITossPaymentWebhook } from "toss-payments-server-api/lib/structures/ITossPaymentWebhook";
-import { PaymentWebhookProvider } from "../../providers/payments/PaymentWebhookProvider";
-import { IamportPaymentService } from "../../services/iamport/IamportPaymentService";
 import { ITossPayment } from "toss-payments-server-api/lib/structures/ITossPayment";
-import { TossPaymentService } from "../../services/toss/TossPaymentService";
+
+import { IamportPaymentService } from "../services/iamport/IamportPaymentService";
+import { PaymentWebhookProvider } from "../providers/PaymentWebhookProvider";
+import { TossPaymentService } from "../services/toss/TossPaymentService";
 
 @nest.Controller("webhooks")
 export class PaymentWebhooksController
@@ -14,7 +15,7 @@ export class PaymentWebhooksController
     /**
      * @internal
      */
-    @helper.TypedRoute.Post("webhook")
+    @helper.TypedRoute.Post("iamport")
     public async iamport
         (
             @nest.Body() input: IIamportPayment.IWebhook

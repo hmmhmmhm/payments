@@ -3,7 +3,7 @@ import serializeError = require("serialize-error");
 import { randint } from "tstl/algorithm/random";
 import { Singleton } from "tstl/thread/Singleton";
 
-import { Configuration } from "../Configuration";
+import { PaymentConfiguration } from "../PaymentConfiguration";
 
 export namespace ErrorUtil
 {
@@ -32,7 +32,7 @@ export namespace ErrorUtil
             await directory.get();
             await fs.promises.writeFile
             (
-                `${Configuration.ASSETS}/logs/errors/${prefix}_${fileName}.log`, 
+                `${PaymentConfiguration.ASSETS}/logs/errors/${prefix}_${fileName}.log`, 
                 content, 
                 "utf8"
             );
@@ -53,13 +53,13 @@ const directory = new Singleton(async () =>
 {
     try 
     {
-        await fs.promises.mkdir(`${Configuration.ASSETS}/logs`); 
+        await fs.promises.mkdir(`${PaymentConfiguration.ASSETS}/logs`); 
     }
     catch {}
 
     try 
     {
-        await fs.promises.mkdir(`${Configuration.ASSETS}/logs/errors`); 
+        await fs.promises.mkdir(`${PaymentConfiguration.ASSETS}/logs/errors`); 
     }
     catch {}
 });

@@ -2,7 +2,7 @@ import btoa from "btoa";
 import fake from "fake-toss-payments-server";
 import toss from "toss-payments-server-api";
 
-import { Configuration } from "../../Configuration";
+import { PaymentConfiguration } from "../../PaymentConfiguration";
 import { SGlobal } from "../../SGlobal";
 
 export namespace TossAsset
@@ -20,7 +20,7 @@ export namespace TossAsset
             return {
                 host: "https://api.tosspayments.com/v1",
                 headers: {
-                    "Authorzation": `Basic ${Configuration.toss_secret_key(storeId)}`
+                    "Authorzation": `Basic ${PaymentConfiguration.toss_secret_key(storeId)}`
                 }
             };
     }

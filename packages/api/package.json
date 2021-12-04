@@ -1,22 +1,22 @@
 {
-  "name": "@samchon/payments-backend-api",
+  "name": "payments-api",
   "version": "0.0.0",
   "description": "API for payments-backend",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/samchon/backend"
+    "url": "https://github.com/samchon/payments"
   },
   "author": "Jeongho Nam",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/samchon/backend/issues"
+    "url": "https://github.com/samchon/payments/issues"
   },
-  "homepage": "https://github.com/samchon/backend#readme",
+  "homepage": "https://github.com/samchon/payments#readme",
   "dependencies": {
-    "iamport-server-api": "^0.1.1",
+    "iamport-server-api": "^0.2.1",
     "node-fetch": "^2.6.1",
-    "toss-payments-server-api": "^0.1.1"
+    "toss-payments-server-api": "^0.2.1"
   }
 }

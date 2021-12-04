@@ -7,8 +7,8 @@ import * as orm from "typeorm";
 import { Singleton } from "tstl/thread/Singleton";
 import { randint } from "tstl/algorithm/random";
 
-import { Backend } from "../Backend";
-import { Configuration } from "../Configuration";
+import { PaymentBackend } from "../PaymentBackend";
+import { PaymentConfiguration } from "../PaymentConfiguration";
 import { SGlobal } from "../SGlobal";
 
 import { ErrorUtil } from "../utils/ErrorUtil";
@@ -62,11 +62,11 @@ async function main(): Promise<void>
         SGlobal.setMode(process.argv[2].toUpperCase() as typeof SGlobal.mode);
 
     // CONNECT TO THE DB FIRST
-    await orm.createConnection(Configuration.DB_CONFIG);
+    await orm.createConnection(PaymentConfiguration.DB_CONFIG);
     
     // BACKEND SEVER LATER
-    const backend: Backend = new Backend();
-    await backend.open(Configuration.API_PORT);
+    const backend: PaymentBackend = new PaymentBackend();
+    await backend.open();
 
     //----
     // POST-PROCESSES

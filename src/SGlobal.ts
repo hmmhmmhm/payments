@@ -2,7 +2,7 @@ import { MutexConnector } from "mutex-server";
 import { MutableSingleton } from "tstl/thread/MutableSingleton";
 import { assertType } from "typescript-is";
 
-import { Configuration } from "./Configuration";
+import { PaymentConfiguration } from "./PaymentConfiguration";
 
 /**
  * Global variables of the server.
@@ -39,8 +39,8 @@ export namespace SGlobal
 {
     export const critical: MutableSingleton<MutexConnector<string, null>> = new MutableSingleton(async () =>
     {
-        const connector: MutexConnector<string, null> = new MutexConnector(Configuration.SYSTEM_PASSWORD, null);
-        await connector.connect(`ws://${Configuration.MASTER_IP}:${Configuration.UPDATOR_PORT}/api`);
+        const connector: MutexConnector<string, null> = new MutexConnector(PaymentConfiguration.SYSTEM_PASSWORD, null);
+        await connector.connect(`ws://${PaymentConfiguration.MASTER_IP}:${PaymentConfiguration.UPDATOR_PORT}/api`);
         return connector;
     });
     

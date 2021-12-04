@@ -1,10 +1,10 @@
 import * as cli from "cli";
 import * as orm from "typeorm";
-import { Backend } from "../Backend";
+import { PaymentBackend } from "../PaymentBackend";
 
-import api from "../api";
+import payments from "../api";
 
-import { Configuration } from "../Configuration";
+import { PaymentConfiguration } from "../PaymentConfiguration";
 import { SGlobal } from "../SGlobal";
 
 import { DynamicImportIterator } from "./internal/DynamicImportIterator";
@@ -26,9 +26,10 @@ async function main(): Promise<void>
     const command: ICommand = cli.parse();
     if (command.mode)
         SGlobal.setMode(command.mode.toUpperCase() as typeof SGlobal.mode);
+    SGlobal.testing = true;
 
     // PREPARE DATABASE
-    const db: orm.Connection = await orm.createConnection(Configuration.DB_CONFIG);
+    const db: orm.Connection = await orm.createConnection(PaymentConfiguration.DB_CONFIG);
     if (command.skipReset === undefined)
     {
         await StopWatch.trace("Reset DB", () => SetupWizard.schema(db));
@@ -39,16 +40,16 @@ async function main(): Promise<void>
     const updator: MutexServer<string, IUpdateController | null> = await start_updator_master();
 
     // BACKEND SERVER
-    const backend: Backend = new Backend();
-    await backend.open(Configuration.API_PORT);
+    const backend: PaymentBackend = new PaymentBackend();
+    await backend.open();
 
     //----
     // CLINET CONNECTOR
     //----
     // CONNECTION INFO
-    const connection: api.IConnection = {
-        host: `http://127.0.0.1:${Configuration.API_PORT}`,
-        encryption: Configuration.ENCRYPTION_PASSWORD
+    const connection: payments.IConnection = {
+        host: `http://127.0.0.1:${PaymentConfiguration.API_PORT}`,
+        encryption: PaymentConfiguration.ENCRYPTION_PASSWORD
     };
 
     // DO TEST

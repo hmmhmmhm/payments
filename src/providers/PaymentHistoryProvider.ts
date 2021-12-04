@@ -2,14 +2,14 @@ import safe from "safe-typeorm";
 import { InvalidArgument } from "tstl/exception/InvalidArgument";
 import { Singleton } from "tstl/thread/Singleton";
 
-import { HttpError } from "../../api/HttpError";
-import { IPaymentHistory } from "../../api/structures/IPaymentHistory";
-import { IPaymentWebhook } from "../../api/structures/IPaymentWebhook";
+import { HttpError } from "../api/HttpError";
+import { IPaymentHistory } from "../api/structures/IPaymentHistory";
+import { IPaymentWebhook } from "../api/structures/IPaymentWebhook";
 
-import { PaymentHistory } from "../../models/PaymentHistory";
+import { PaymentHistory } from "../models/PaymentHistory";
 
-import { IamportPaymentService } from "../../services/iamport/IamportPaymentService";
-import { TossPaymentService } from "../../services/toss/TossPaymentService";
+import { IamportPaymentService } from "../services/iamport/IamportPaymentService";
+import { TossPaymentService } from "../services/toss/TossPaymentService";
 
 export namespace PaymentHistoryProvider
 {

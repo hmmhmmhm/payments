@@ -2,7 +2,7 @@ import fake from "fake-iamport-server";
 import imp from "iamport-server-api";
 import { VariadicSingleton } from "tstl/thread/VariadicSingleton";
 
-import { Configuration } from "../../Configuration";
+import { PaymentConfiguration } from "../../PaymentConfiguration";
 import { SGlobal } from "../../SGlobal";
 
 export namespace IamportAsset
@@ -34,7 +34,7 @@ export namespace IamportAsset
                 return new imp.IamportConnector
                 (
                     "https://api.iamport.kr",
-                    Configuration.iamport_user_accessor(storeId)
+                    PaymentConfiguration.iamport_user_accessor(storeId)
                 );
         });
 }

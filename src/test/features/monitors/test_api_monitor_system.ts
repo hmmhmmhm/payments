@@ -1,9 +1,9 @@
 import { assertType } from "typescript-is";
-import api from "../../../api";
+import payments from "../../../api";
 import { ISystem } from "../../../api/structures/monitors/ISystem";
 
-export async function test_api_monitor_system(connection: api.IConnection): Promise<void>
+export async function test_api_monitor_system(connection: payments.IConnection): Promise<void>
 {
-    const system: ISystem = await api.functional.monitors.system.get(connection);
+    const system: ISystem = await payments.functional.monitors.system.get(connection);
     assertType<typeof system>(system);
 }

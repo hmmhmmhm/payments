@@ -1,4 +1,4 @@
-import { Configuration } from "../Configuration";
+import { PaymentConfiguration } from "../PaymentConfiguration";
 import { SGlobal } from "../SGlobal";
 
 import { start_updator_slave } from "./internal/start_updator_slave";
@@ -10,7 +10,7 @@ async function main(): Promise<void>
         SGlobal.setMode(process.argv[2].toUpperCase() as typeof SGlobal.mode);
 
     // START THE CLIENT
-    await start_updator_slave(Configuration.MASTER_IP);
+    await start_updator_slave(PaymentConfiguration.MASTER_IP);
 }
 main().catch(exp =>
 {

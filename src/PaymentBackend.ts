@@ -3,15 +3,21 @@ import * as helper from "encrypted-nestjs";
 import * as nest from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 
-import { Configuration } from "./Configuration";
+import payments from "./api";
+import FakeIamport from "fake-iamport-server";
+import FakeToss from "fake-toss-payments-server";
+
+import { PaymentConfiguration } from "./PaymentConfiguration";
 import { SGlobal } from "./SGlobal";
 
-export class Backend
+export class PaymentBackend
 {
     private application_?: nest.INestApplication;
     private is_closing_: boolean = false;
 
-    public async open(port: number = Configuration.API_PORT): Promise<void>
+    private fake_servers_: IFakeServer[] = [];
+
+    public async open(): Promise<void>
     {
         //----
         // OPEN THE BACKEND SERVER
@@ -22,7 +28,7 @@ export class Backend
             await helper.EncryptedModule.dynamic
             (
                 __dirname + "/controllers", 
-                Configuration.ENCRYPTION_PASSWORD
+                PaymentConfiguration.ENCRYPTION_PASSWORD
             ),
             { logger: false }
         );
@@ -33,7 +39,25 @@ export class Backend
         this.application_.use(this.middleware.bind(this));
 
         // DO OPEN
-        await this.application_.listen(port);
+        await this.application_.listen(PaymentConfiguration.API_PORT);
+
+        // CONFIGURE FAKE SERVERS IF TESTING
+        if (SGlobal.testing === true)
+        {
+            // OPEN FAKE SERVERS
+            this.fake_servers_ = [
+                new FakeIamport.FakeIamportBackend(),
+                new FakeToss.FakeTossBackend()
+            ];
+            for (const s of this.fake_servers_)
+                await s.open();
+
+            const host: string = `http://127.0.0.1:${PaymentConfiguration.API_PORT}`;
+
+            // CONFIGURE WEBHOOK URLS
+            FakeIamport.FakeIamportConfiguration.WEBHOOK_URL = `${host}${payments.functional.webhooks.iamport.PATH}`;
+            FakeToss.TossFakeConfiguration.WEBHOOK_URL = `${host}${payments.functional.webhooks.toss.PATH}`;
+        }
 
         //----
         // POST-PROCESSES
@@ -66,6 +90,11 @@ export class Backend
             const critical = await SGlobal.critical.get();
             await critical.close();
         }
+
+        // CLOSE FAKE SERVERS
+        for (const s of this.fake_servers_)
+            await s.close();
+        this.fake_servers_ = [];
     }
 
     private middleware
@@ -79,4 +108,10 @@ export class Backend
             response.set("Connection", "close");
         next();
     }
+}
+
+interface IFakeServer
+{
+    open(): Promise<void>;
+    close(): Promise<void>;
 }

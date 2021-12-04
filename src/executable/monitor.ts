@@ -1,5 +1,5 @@
-import api from "../api";
-import { Configuration } from "../Configuration";
+import payments from "../api";
+import { PaymentConfiguration } from "../PaymentConfiguration";
 import { SGlobal } from "../SGlobal";
 
 import { IPerformance } from "../api/structures/monitors/IPerformance";
@@ -12,12 +12,12 @@ async function main(): Promise<void>
         SGlobal.setMode(process.argv[2].toUpperCase() as typeof SGlobal.mode);
 
     // GET PERFORMANCE & SYSTEM INFO
-    const connection: api.IConnection = {
-        host: `http://${Configuration.MASTER_IP}:${Configuration.API_PORT}`,
-        encryption: Configuration.ENCRYPTION_PASSWORD
+    const connection: payments.IConnection = {
+        host: `http://${PaymentConfiguration.MASTER_IP}:${PaymentConfiguration.API_PORT}`,
+        encryption: PaymentConfiguration.ENCRYPTION_PASSWORD
     };
-    const performance: IPerformance = await api.functional.monitors.performance.get(connection);
-    const system: ISystem = await api.functional.monitors.system.get(connection);
+    const performance: IPerformance = await payments.functional.monitors.performance.get(connection);
+    const system: ISystem = await payments.functional.monitors.system.get(connection);
     
     // TRACE THEM
     console.log({ performance, system });

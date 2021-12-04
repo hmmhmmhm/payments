@@ -1,0 +1,17 @@
+.git/
+.github/
+node_modules/
+packages/
+src/
+
+lib/test/
+lib/executable/
+lib/ErrorUtil.**
+lib/*/**/*.d.ts
+
+*.js.map
+*.*ignore
+package-lock.json
+tsconfig.api.json
+tsconfig.json
+*.log

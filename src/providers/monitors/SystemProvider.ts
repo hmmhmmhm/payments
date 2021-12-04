@@ -5,7 +5,7 @@ import { v4 } from "uuid";
 
 import { ISystem } from "../../api/structures/monitors/ISystem";
 
-import { Configuration } from "../../Configuration";
+import { PaymentConfiguration } from "../../PaymentConfiguration";
 import { DateUtil } from "../../utils/DateUtil";
 
 export class SystemProvider
@@ -46,7 +46,7 @@ const package_: Singleton<Promise<ISystem.IPackage>> = new Singleton(async () =>
 {
     const content: string = await fs.promises.readFile
     (
-        `${Configuration.ASSETS}/../package.json`, 
+        `${PaymentConfiguration.ASSETS}/../package.json`, 
         "utf8"
     );
     return JSON.parse(content);

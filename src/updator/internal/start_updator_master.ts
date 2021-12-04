@@ -2,7 +2,7 @@ import { MutexServer, MutexAcceptor } from "mutex-server";
 import { HashSet } from "tstl/container/HashSet";
 
 import { IUpdateController } from "./IUpdateController";
-import { Configuration } from "../../Configuration";
+import { PaymentConfiguration } from "../../PaymentConfiguration";
 
 export async function start_updator_master(): Promise<MutexServer<string, IUpdateController | null>>
 {
@@ -24,9 +24,9 @@ export async function start_updator_master(): Promise<MutexServer<string, IUpdat
     };
 
     // OPEN SERVER
-    await server.open(Configuration.UPDATOR_PORT, async acceptor =>
+    await server.open(PaymentConfiguration.UPDATOR_PORT, async acceptor =>
     {
-        if (acceptor.header !== Configuration.SYSTEM_PASSWORD)
+        if (acceptor.header !== PaymentConfiguration.SYSTEM_PASSWORD)
         {
             await acceptor.reject();
             return;

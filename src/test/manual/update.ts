@@ -1,7 +1,7 @@
 import { sleep_for } from "tstl/thread/global";
 
-import api from "../../api";
-import { Configuration } from "../../Configuration";
+import payments from "../../api";
+import { PaymentConfiguration } from "../../PaymentConfiguration";
 
 import { ArrayUtil } from "../../utils/ArrayUtil";
 import { Terminal } from "../../utils/Terminal";
@@ -20,9 +20,9 @@ async function main(): Promise<void>
     await sleep_for(4000);
 
     // API LIBRARY
-    const connection: api.IConnection = {
-        host: `http://127.0.0.1:${Configuration.API_PORT}`,
-        encryption: Configuration.ENCRYPTION_PASSWORD
+    const connection: payments.IConnection = {
+        host: `http://127.0.0.1:${PaymentConfiguration.API_PORT}`,
+        encryption: PaymentConfiguration.ENCRYPTION_PASSWORD
     };
     
     sleep_for(1000).then(async () => 
@@ -37,7 +37,7 @@ async function main(): Promise<void>
         await Promise.all(ArrayUtil.repeat(600, async i =>
         {
             await sleep_for(i * 10);
-            await api.functional.monitors.system.sleep(connection, 3000);
+            await payments.functional.monitors.system.sleep(connection, 3000);
         }));
     }
     catch (exp)

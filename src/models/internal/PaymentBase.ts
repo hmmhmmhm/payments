@@ -38,20 +38,7 @@ export class PaymentBase
     @orm.Column(()  => safe.Password)
     public readonly password = new safe.Password();
 
-    @safe.EncryptedColumn("longtext", {
-        password: () => PaymentBase.ENCRYPTION_PASSWORD
-    })
-    public readonly data!: string;
-
     @orm.Index()
     @orm.CreateDateColumn()
     public readonly created_at!: Date;
-}
-export namespace PaymentBase
-{
-    export const ENCRYPTION_PASSWORD =
-    {
-        key: "VtrsennnxUIqeEyabU73zAIS6yqdJaTv",
-        iv: "UaJC6wODWhuB0EYx"
-    };
 }

@@ -4,7 +4,7 @@ import { UniqueLock } from "tstl/thread/UniqueLock";
 
 import { IUpdateController } from "../updator/internal/IUpdateController";
 
-import { Configuration } from "../Configuration";
+import { PaymentConfiguration } from "../PaymentConfiguration";
 import { SGlobal } from "../SGlobal";
 
 async function main(): Promise<void>
@@ -14,8 +14,8 @@ async function main(): Promise<void>
         SGlobal.setMode(process.argv[2].toUpperCase() as typeof SGlobal.mode);
 
     // CONNECT TO THE UPDATOR SERVER
-    const connector: MutexConnector<string, null> = new MutexConnector(Configuration.SYSTEM_PASSWORD, null);
-    await connector.connect(`ws://${Configuration.MASTER_IP}:${Configuration.UPDATOR_PORT}/update`);
+    const connector: MutexConnector<string, null> = new MutexConnector(PaymentConfiguration.SYSTEM_PASSWORD, null);
+    await connector.connect(`ws://${PaymentConfiguration.MASTER_IP}:${PaymentConfiguration.UPDATOR_PORT}/update`);
 
     // REQUEST UPDATE WITH MONOPOLYING A GLOBAL MUTEX
     const mutex: RemoteMutex = await connector.getMutex("update");

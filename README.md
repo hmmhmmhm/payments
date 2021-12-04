@@ -1,14 +1,14 @@
 # Backend
 ## 1. Outline
 ### 1.1. Introduction
-[![Build Status](https://github.com/samchon/backend/workflows/build/badge.svg)](https://github.com/samchon/backend/actions?query=workflow%3Abuild)
+[![Build Status](https://github.com/samchon/payments/workflows/build/badge.svg)](https://github.com/samchon/payments/actions?query=workflow%3Abuild)
 
 A template repository for the Typescript Backend Server using those libraries:
 
   - [NestJS](https://nestjs.com) and [**`nestia`**](https://github.com/samchon/nestia): Automatic SDK generator for NestJS
   - [TypeORM](https://typeorm.io) and [`safe-typeorm`](https://github.com/samchon/safe-typeorm): Helper of TypeORM in the compilation level
 
-Also, I've prepared lots of example backend projects based on this template project. Reading this [README.md](https://github.com/samchon/backend) document and traveling below example projects, you may understand how to develop the TypeScript backend server with the [Nestia](https://github.com/samchon/nestia) and [Safe-TypeORM](https://github.com/samchon/safe-typeorm).
+Also, I've prepared lots of example backend projects based on this template project. Reading this [README.md](https://github.com/samchon/payments) document and traveling below example projects, you may understand how to develop the TypeScript backend server with the [Nestia](https://github.com/samchon/nestia) and [Safe-TypeORM](https://github.com/samchon/safe-typeorm).
 
   - samchon/academic-backend: preparing...
   - [samchon/bbs-backend](https://github.com/samchon/bbs-backend): Built-in Board System
@@ -162,9 +162,9 @@ After those declarations, build the [SDK](#32-sdk) through the `npm run build:ap
   - Deploy to the Dev and Real servers.
 
 ### 3.2. SDK
-[`@samchon/payments-backend`](https://github.com/samchon/backend) provides SDK (Software Development Kit) for convenience.
+[`@samchon/payments-backend`](https://github.com/samchon/payments) provides SDK (Software Development Kit) for convenience.
 
-For the client developers who are connecting to this backend server, [`@samchon/payments-backend`](https://github.com/samchon/backend) provides not API documents like the Swagger, but provides the API interaction library, one of the typical SDK (Software Development Kit) for the convenience.
+For the client developers who are connecting to this backend server, [`@samchon/payments-backend`](https://github.com/samchon/payments) provides not API documents like the Swagger, but provides the API interaction library, one of the typical SDK (Software Development Kit) for the convenience.
 
 With the SDK, client developers never need to re-define the duplicated API interfaces. Just utilize the provided interfaces and asynchronous functions defined in the SDK. It would be much convenient than any other Rest API solutions.
 
@@ -427,11 +427,11 @@ List of the run commands defined in the [package.json](package.json) are like be
     - npm run update real
 
 ### 5.3. Github Action
-[![Build Status](https://github.com/samchon/backend/workflows/build/badge.svg)](https://github.com/samchon/backend/actions?query=workflow%3Abuild)
+[![Build Status](https://github.com/samchon/payments/workflows/build/badge.svg)](https://github.com/samchon/payments/actions?query=workflow%3Abuild)
 
 This backend project utilizes the Github Action to run the cloud CI (Continuous Integration) test whenever a commit or PR event occurs. The CI test starts from installing the backend server program to a clean Ubuntu system that nothing has been installed yet.
 
-You know what? All of CI processes, like installing required programs into the clean Ubuntu and compiling and running the Test Automation Program, are defined in the [`.github/workflows/build.yml`](.github/workflows/build.yml) script file. Also <font color="green">passing</font> or <font color="red">failure</font> expressed from the above [badge](https://github.com/samchon/backend/actions?query=workflow%3Abuild) represents outcome of the CI test.
+You know what? All of CI processes, like installing required programs into the clean Ubuntu and compiling and running the Test Automation Program, are defined in the [`.github/workflows/build.yml`](.github/workflows/build.yml) script file. Also <font color="green">passing</font> or <font color="red">failure</font> expressed from the above [badge](https://github.com/samchon/payments/actions?query=workflow%3Abuild) represents outcome of the CI test.
 
 ### 5.4. Related Repositories
 > Write the related repositories down.

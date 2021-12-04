@@ -1,4 +1,4 @@
 export * from "./module";
 
-import * as api from "./module";
-export default api;
+import * as payments from "./module";
+export default payments;

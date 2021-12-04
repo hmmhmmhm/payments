@@ -2,14 +2,14 @@ import * as helper from "encrypted-nestjs";
 import * as nest from "@nestjs/common";
 import { assertType } from "typescript-is";
 
-import { IPaymentHistory } from "../../api/structures/IPaymentHistory";
-import { IPaymentSource } from "../../api/structures/IPaymentSource";
+import { IPaymentHistory } from "../api/structures/IPaymentHistory";
+import { IPaymentSource } from "../api/structures/IPaymentSource";
 
-import { PaymentHistory } from "../../models/PaymentHistory";
+import { PaymentHistory } from "../models/PaymentHistory";
 
-import { PaymentHistoryProvider } from "../../providers/payments/PaymentHistoryProvider";
+import { PaymentHistoryProvider } from "../providers/PaymentHistoryProvider";
 
-@nest.Controller("payments/histories")
+@nest.Controller("histories")
 export class PaymentHistoriesController
 {
     /**
