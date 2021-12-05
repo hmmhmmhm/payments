@@ -53,7 +53,7 @@ export async function test_fake_toss_payment_reservation
      * {@link IPaymentSource.id} 로 할당하여 {@link IPaymentReservation} 레코드를
      * 발행한다.
      * 
-     * 참고로 간편 결제 수단을 등록할 때 반드시 비밀번호를 설정해야 하는데, 향후 간편
+     * 참고로 간편 결제 수단을 등록할 때 반드시 비밀번호를 설정해야 하는데, 이는 향후 간편
      * 결제 수단을 조회할 때 필요하니, 이를 반드시 귀하의 백엔드 서버에 저장해두도록 한다.
      */
     const reservation: IPaymentReservation = 

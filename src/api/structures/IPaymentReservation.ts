@@ -52,7 +52,7 @@ export namespace IPaymentReservation
         /**
          * 벤더사 정보.
          */
-        vendor: IPaymentVendor<"toss.payments">;
+        vendor: IPaymentVendor<IPaymentVendor.Code>;
 
         /**
          * 원천 레코드 정보.

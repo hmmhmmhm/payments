@@ -66,12 +66,12 @@ export class PaymentConfiguration
 
 export namespace PaymentConfiguration
 {
-    export const API_PORT = 37001;
-    export const UPDATOR_PORT = 37000;
+    export const API_PORT = 37821;
+    export const UPDATOR_PORT = 37820;
     
     export const ENCRYPTION_PASSWORD: Readonly<helper.IPassword> = {
-        key: "pJXhbHlYfzkC1CBK8R67faaBgJWB9Myu",
-        iv: "IXJBt4MflFxvxKkn"
+        key: "SqwHmmXm1fZteI3URPtoyBWFJDMQ7FBQ",
+        iv: "9eSfjygAClnE1JJs"
     };
 
     export const ASSETS = __dirname + "/../assets";

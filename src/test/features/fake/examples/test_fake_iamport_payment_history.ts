@@ -27,6 +27,17 @@ export async function test_fake_iamport_payment_history
     /* -----------------------------------------------------------
         결제 내역 등록
     ----------------------------------------------------------- */
+    /**
+     * 아임포트 시뮬레이션
+     * 
+     * 고객이 프론트 어플리케이션에서, 아임포트가 제공하는 팝업 창을 이용, 카드 결제를
+     * 하는 상황을 시뮬레이션 한다. 고객이 카드 결제를 마치거든, 프론트 어플리케이션에 
+     * {@link IIamportPayment.imp_uid} 가 전달된다.
+     * 
+     * 이 {@link IIamportPayment.imp_uid} 와 귀하의 백엔드에서 직접 생성한 
+     * {@link ITossPayment.orderId yourOrderId} 를 잘 기억해두었다가, 이를 다음 단계인
+     * {@link IPaymentHistory} 등록에 사용하도록 하자.
+     */
     const payment: IIamportResponse<IIamportPayment> = 
         await imp.functional.subscribe.payments.onetime
         (
@@ -42,6 +53,18 @@ export async function test_fake_iamport_payment_history
             }
         );
     
+    /**
+     * 결제 이력 등록하기.
+     * 
+     * 앞서 아임포트의 팝업 창을 이용하여 카드 결제를 진행하고 발급받은 
+     * {@link IIamportPayment.imp_uid}, 그리고 귀하의 백엔드에서 직접 생성한
+     * {@link IIamportPayment.merchant_uid yourOrderId} 를 각각 
+     * {@link IPaymentVendor.uid} 와 {@link IPaymentSource.id} 로 할당하여 
+     * {@link IPaymentReservation} 레코드를 발행한다.
+     * 
+     * 참고로 결제 이력을 등록할 때 반드시 비밀번호를 설정해야 하는데, 향후 결제 이력을
+     * 조회할 때 필요하니, 이를 반드시 귀하의 백엔드 서버에 저장해두도록 한다.
+     */
     const history: IPaymentHistory = await payments.functional.histories.store
     (
         connection,
@@ -81,7 +104,7 @@ export async function test_fake_iamport_payment_history
         }
     );
     if (read.vendor_code === "iamport")
-        read.data.imp_uid;
+        read.data.imp_uid; // if condition 을 통한 하위 타입 특정
 
     /**
      * 결제 내역 조회하기 by {@link IPaymentSource}.
@@ -101,5 +124,5 @@ export async function test_fake_iamport_payment_history
         }
     );
     if (gotten.vendor_code === "iamport")
-        gotten.data.imp_uid;
+        gotten.data.imp_uid; // if condition 을 통한 하위 타입 특정
 }
