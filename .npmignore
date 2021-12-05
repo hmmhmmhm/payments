@@ -8,6 +8,7 @@ lib/test/
 lib/executable/
 lib/ErrorUtil.**
 lib/*/**/*.d.ts
+lib/*/**/*.d.ts.map
 
 *.js.map
 *.*ignore

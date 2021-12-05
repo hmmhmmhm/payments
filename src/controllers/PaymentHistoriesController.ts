@@ -15,7 +15,7 @@ export class PaymentHistoriesController
     /**
      * 결제 내역 상세 조회하기.
      * 
-     * @param input 결제 내역의 원천 정보.
+     * @param input 결제 내역의 원천 정보 + 비밀번호
      * @returns 결제 내역
      */
     @helper.EncryptedRoute.Patch("get")
@@ -63,7 +63,7 @@ export class PaymentHistoriesController
     /**
      * 결제 내역 발행하기.
      * 
-     * @param input SDK 로부터 받은 정보
+     * @param input 결제 내역 입력 정보
      * @returns 결제 내역
      */
     @helper.EncryptedRoute.Post()

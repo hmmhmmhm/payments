@@ -4,12 +4,36 @@ import { ITossPayment } from "toss-payments-server-api/lib/structures/ITossPayme
 import { IPaymentSource } from "./IPaymentSource";
 import { IPaymentVendor } from "./IPaymentVendor";
 
+/**
+ * 결제 내역.
+ * 
+ * `IPaymentHistory` 는 결제 내역을 형상화한 자료구조이자 유니언 타입의 인터페이스로써,
+ * if condition 을 통하여 {@link IPaymentHistory.vendor_code} 값을 특정하면, 파생 타입이
+ *  자동으로 다운 캐스팅 된다.
+ * 
+ * ```typescript
+ * if (history.vendor_code === "toss.payments")
+ *     history.data.paymentKey; // history.data be ITossPayment
+ * ```
+ * 
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export type IPaymentHistory = IPaymentHistory.IamportType | IPaymentHistory.TossType;
 export namespace IPaymentHistory
 {
+    /**
+     * 아임포트로부터의 결제 내역.
+     */
     export type IamportType = BaseType<"iamport", IIamportPayment>;
+    
+    /**
+     * 토스 페이먼츠로부터의 결제 내역.
+     */
     export type TossType = BaseType<"toss.payments", ITossPayment>;
     
+    /**
+     * 결제 내역의 기본 정보.
+     */
     export interface BaseType<
             VendorCode extends IPaymentVendor.Code, 
             Data extends object>

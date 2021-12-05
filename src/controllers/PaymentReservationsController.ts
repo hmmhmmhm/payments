@@ -13,6 +13,12 @@ import { PaymentReservationProvider } from "../providers/PaymentReservationProvi
 @nest.Controller("reservations")
 export class PaymentReservationsController
 {
+    /**
+     * 간편 결제 수단 조회하기.
+     * 
+     * @param input 간편 결제 수단의 원천 정보 + 비밀번호
+     * @returns 결제 내역
+     */
     @helper.EncryptedRoute.Patch("get")
     public async get
         (
@@ -32,6 +38,13 @@ export class PaymentReservationsController
         return await PaymentReservationProvider.json().getOne(reservation);
     }
 
+    /**
+     * 간편 결제 수단 조회하기.
+     * 
+     * @param id Primary Key
+     * @param input 비밀번호
+     * @returns 간편 결제 수단 정보
+     */
     @helper.EncryptedRoute.Patch(":id")
     public async at
         (
@@ -48,6 +61,12 @@ export class PaymentReservationsController
         return await PaymentReservationProvider.json().getOne(reservation);
     }
 
+    /**
+     * 간편 결제 수단 등록하기.
+     * 
+     * @param input 간편 결제 수단 입력 정보
+     * @returns 간편 결제 수단 정보
+     */
     @helper.EncryptedRoute.Post()
     public async store
         (
