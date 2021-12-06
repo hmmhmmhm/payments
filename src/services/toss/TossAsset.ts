@@ -9,19 +9,14 @@ export namespace TossAsset
 {
     export function connection(storeId: string): toss.IConnection
     {
-        if (PaymentGlobal.testing === true)
-            return {
-                host: `http://127.0.0.1:${fake.TossFakeConfiguration.API_PORT}`,
-                headers: {
-                    "Authorization": `Basic ${btoa("test_ak_ZORzdMaqN3wQd5k6ygr5AkYXQGwy")}`
-                }
-            };
-        else
-            return {
-                host: "https://api.tosspayments.com/v1",
-                headers: {
-                    "Authorzation": `Basic ${PaymentConfiguration.toss_secret_key(storeId)}`
-                }
-            };
+        const host: string = PaymentGlobal.testing === true
+            ? `http://127.0.0.1:${fake.TossFakeConfiguration.API_PORT}`
+            : "https://api.tosspayments.com/v1";
+        const Authorization: string = `Basic ${btoa(PaymentConfiguration.toss_secret_key(storeId))}`;
+        
+        return {
+            host,
+            headers: { Authorization }
+        };
     }
 }

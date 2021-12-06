@@ -14,15 +14,15 @@
   - [samchon/fake-iamport-server](https://github.com/samchon/fake-iamport-server)
   - [samchon/fake-toss-payments-server](https://github.com/samchon/fake-toss-payments-server)
 
-마지막으로 `payments-server` 는 [payments-api](https://www.npmjs.com/package/payments-api) 라 하여, 통합 결제 서버와 연동할 수 있는 SDK 라이브러리를 제공한다. 귀하는 이 [payments-api](https://www.npmjs.com/package/payments-api) 를 통하여, 통합 결제 서버와 매우 손쉽게 연동할 수 있고, 이를 통하여 결제 부문에 관련된 MSA (Micro Service Architecture) 를 매우 안전하게 구성할 수 있다.
+마지막으로 `payments-server` 는 `payments-api` 라 하여, 통합 결제 서버와 연동할 수 있는 SDK 라이브러리를 제공한다. 귀하는 이 `payments-api` 를 통하여, 통합 결제 서버와 매우 손쉽게 연동할 수 있고, 이를 통하여 결제 부문에 관련된 MSA (Micro Service Architecture) 를 매우 안전하게 구성할 수 있다.
 
   - 자료구조 매뉴얼: [src/api/structures/IPaymentHistory.ts](https://github.surf/samchon/payments/blob/HEAD/src/api/structures/IPaymentHistory.ts)
   - API 함수 매뉴얼: [src/api/functional/histories/index.ts](https://github.surf/samchon/payments/blob/HEAD/src/api/functional/histories/index.ts)
   - 예제 코드
     - 아임포트
       - 결제 기록하기: [test_fake_iamport_payment_history.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_iamport_payment_history.ts)
-      - 간편 결제 등록하기: [test_fake_iamport_reservation.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_iamport_reservation.ts)
-      - 웹훅 이벤트 리스닝: [test_fake_iamport_webhook.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/)
+      - 간편 결제 등록하기: [test_fake_iamport_payment_reservation.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_iamport_payment_reservation.ts)
+      - 웹훅 이벤트 리스닝: [test_fake_iamport_payment_webhook.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_iamport_payment_webhook.ts)
     - 토스 페이먼츠
       - 결제 기록하기: [test_fake_toss_payment_history.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_toss_payment_history.ts)
       - 간편 결제 등록하기: [test_fake_toss_payment_reservation.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_toss_payment_reservation.ts)
@@ -199,8 +199,9 @@ async function main(): Promise<void>
   - 예제 코드
     - 아임포트
       - 결제 기록하기: [test_fake_iamport_payment_history.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_iamport_payment_history.ts)
-      - 간편 결제 등록하기: [test_fake_iamport_reservation.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_iamport_reservation.ts)
-      - 웹훅 이벤트 리스닝: [test_fake_iamport_webhook.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/)
+      - 간편 결제 등록하기: [test_fake_iamport_payment_reservation.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_iamport_payment_reservation.ts)
+      - 웹훅 이벤트 리스닝: [test_fake_iamport_payment_webhook.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_iamport_payment_webhook.ts)
+    - 토스 페이먼츠
     - 토스 페이먼츠
       - 결제 기록하기: [test_fake_toss_payment_history.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_toss_payment_history.ts)
       - 간편 결제 등록하기: [test_fake_toss_payment_reservation.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_toss_payment_reservation.ts)
@@ -544,8 +545,9 @@ npm run monitor master
   - 예제 코드
     - 아임포트
       - 결제 기록하기: [test_fake_iamport_payment_history.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_iamport_payment_history.ts)
-      - 간편 결제 등록하기: [test_fake_iamport_reservation.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_iamport_reservation.ts)
-      - 웹훅 이벤트 리스닝: [test_fake_iamport_webhook.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/)
+      - 간편 결제 등록하기: [test_fake_iamport_payment_reservation.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_iamport_payment_reservation.ts)
+      - 웹훅 이벤트 리스닝: [test_fake_iamport_payment_webhook.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_iamport_payment_webhook.ts)
+    - 토스 페이먼츠
     - 토스 페이먼츠
       - 결제 기록하기: [test_fake_toss_payment_history.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_toss_payment_history.ts)
       - 간편 결제 등록하기: [test_fake_toss_payment_reservation.ts](https://github.surf/samchon/payments/blob/HEAD/src/test/features/fake/examples/test_fake_toss_payment_reservation.ts)
