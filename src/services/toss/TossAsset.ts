@@ -3,13 +3,13 @@ import fake from "fake-toss-payments-server";
 import toss from "toss-payments-server-api";
 
 import { PaymentConfiguration } from "../../PaymentConfiguration";
-import { SGlobal } from "../../SGlobal";
+import { PaymentGlobal } from "../../PaymentGlobal";
 
 export namespace TossAsset
 {
     export function connection(storeId: string): toss.IConnection
     {
-        if (SGlobal.testing === true)
+        if (PaymentGlobal.testing === true)
             return {
                 host: `http://127.0.0.1:${fake.TossFakeConfiguration.API_PORT}`,
                 headers: {

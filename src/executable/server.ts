@@ -9,7 +9,7 @@ import { randint } from "tstl/algorithm/random";
 
 import { PaymentBackend } from "../PaymentBackend";
 import { PaymentConfiguration } from "../PaymentConfiguration";
-import { SGlobal } from "../SGlobal";
+import { PaymentGlobal } from "../PaymentGlobal";
 
 import { ErrorUtil } from "../utils/ErrorUtil";
 import { Scheduler } from "../schedulers/Scheduler";
@@ -59,10 +59,10 @@ async function main(): Promise<void>
     //----
     // CONFIGURE MODE
     if (process.argv[2])
-        SGlobal.setMode(process.argv[2].toUpperCase() as typeof SGlobal.mode);
+        PaymentGlobal.setMode(process.argv[2].toUpperCase() as "LOCAL");
 
     // CONNECT TO THE DB FIRST
-    await orm.createConnection(PaymentConfiguration.DB_CONFIG);
+    await orm.createConnection(PaymentConfiguration.db_config());
     
     // BACKEND SEVER LATER
     const backend: PaymentBackend = new PaymentBackend();
@@ -76,7 +76,7 @@ async function main(): Promise<void>
     global.process.on("unhandledRejection", handle_error);
 
     // SCHEDULER ONLY WHEN MASTER
-    if (SGlobal.mode !== "REAL" || process.argv[3] === "master")
+    if (PaymentGlobal.mode !== "REAL" || process.argv[3] === "master")
         await Scheduler.repeat();
 }
 main().catch(exp =>

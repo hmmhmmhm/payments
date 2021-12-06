@@ -3,7 +3,7 @@ import imp from "iamport-server-api";
 import { VariadicSingleton } from "tstl/thread/VariadicSingleton";
 
 import { PaymentConfiguration } from "../../PaymentConfiguration";
-import { SGlobal } from "../../SGlobal";
+import { PaymentGlobal } from "../../PaymentGlobal";
 
 export namespace IamportAsset
 {
@@ -11,14 +11,14 @@ export namespace IamportAsset
     {
         const connector: imp.IamportConnector = connector_singleton_.get
         (
-            SGlobal.mode, 
-            SGlobal.testing, 
+            PaymentGlobal.mode, 
+            PaymentGlobal.testing, 
             storeId
         );
         return await connector.get();
     }
 
-    const connector_singleton_: VariadicSingleton<imp.IamportConnector, [typeof SGlobal.mode, boolean, string]> = 
+    const connector_singleton_: VariadicSingleton<imp.IamportConnector, [typeof PaymentGlobal.mode, boolean, string]> = 
         new VariadicSingleton((_mode, testing, storeId) => 
         {
             if (testing === true)

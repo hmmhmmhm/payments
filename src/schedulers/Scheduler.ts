@@ -1,12 +1,12 @@
 import { sleep_for } from "tstl/thread/global";
-import { SGlobal } from "../SGlobal";
+import { PaymentGlobal } from "../PaymentGlobal";
 import { DynamicImportIterator } from "../test/internal/DynamicImportIterator";
 
 export namespace Scheduler
 {
     export async function repeat(): Promise<void>
     {
-        const critical = await SGlobal.critical.get();
+        const critical = await PaymentGlobal.critical.get();
         const mutex = await critical.getMutex("scheduler");
 
         if (await mutex.try_lock() === false)

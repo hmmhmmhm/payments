@@ -1,14 +1,14 @@
 import * as cli from "cli";
 import * as orm from "typeorm";
-import { PaymentBackend } from "../PaymentBackend";
 
 import payments from "../api";
 
+import { PaymentBackend } from "../PaymentBackend";
 import { PaymentConfiguration } from "../PaymentConfiguration";
-import { SGlobal } from "../SGlobal";
+import { PaymentGlobal } from "../PaymentGlobal";
 
 import { DynamicImportIterator } from "./internal/DynamicImportIterator";
-import { SetupWizard } from "../setup/SetupWizard";
+import { PaymentSetupWizard } from "../PaymentSetupWizard";
 import { StopWatch } from "./internal/StopWatch";
 import { MutexServer } from "mutex-server";
 import { start_updator_master } from "../updator/internal/start_updator_master";
@@ -25,16 +25,13 @@ async function main(): Promise<void>
     // SPECIALIZE MODE
     const command: ICommand = cli.parse();
     if (command.mode)
-        SGlobal.setMode(command.mode.toUpperCase() as typeof SGlobal.mode);
-    SGlobal.testing = true;
+        PaymentGlobal.setMode(process.argv[2].toUpperCase() as "LOCAL");
+    PaymentGlobal.testing = true;
 
     // PREPARE DATABASE
-    const db: orm.Connection = await orm.createConnection(PaymentConfiguration.DB_CONFIG);
+    const db: orm.Connection = await orm.createConnection(PaymentConfiguration.db_config());
     if (command.skipReset === undefined)
-    {
-        await StopWatch.trace("Reset DB", () => SetupWizard.schema(db));
-        await StopWatch.trace("Seed Data", () => SetupWizard.seed());
-    }
+        await StopWatch.trace("Reset DB", () => PaymentSetupWizard.schema(db));
 
     // UPDATOR SERVER
     const updator: MutexServer<string, IUpdateController | null> = await start_updator_master();

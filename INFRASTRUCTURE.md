@@ -1,23 +1,14 @@
 # INTRASTRUCTURE
 ## 1. DBMS
 ### 1.1. RDB Instance
-[`@samchon/payments-backend`](https://github.com/samchon/payments) is using the `MariaDB@10.5` as its DBMS.
+[`payments-server`](https://github.com/samchon/payments) is using the `MariaDB@10.5` as its DBMS.
 
 Also, the accounts of the DBMS are separated to the `readonly` and `writable`. In the policy, `writable` account only can be used in automated program like the backend server. The developer or someone else need to connect to the DBMS directly, they're allowed to use only the `readonly` account.
 
 ```sql
 -- CREATE SCHEMA WITH STRICT MODE
 CREATE SCHEMA payments DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET GLOBAL sql_mode = CONCAT_WS(',',
-    'IGNORE_SPACE',
-    'ONLY_FULL_GROUP_BY',
-    'STRICT_TRANS_TABLES',
-    'NO_ZERO_IN_DATE',
-    'NO_ZERO_DATE',
-    'ERROR_FOR_DIVISION_BY_ZERO',
-    'NO_AUTO_CREATE_USER',
-    'NO_ENGINE_SUBSTITUTION'
-);
+SET GLOBAL sql_mode = 'ANSI,TRADITIONAL';
 
 -- WRITABLE ACCOUNT
 CREATE USER writable_account;
@@ -111,15 +102,15 @@ FLUSH PRIVILEGES;
 ## 2. Backend Server
 To open a backend server, you need to permit one or two ports. 
 
-The first is the `37000` port, that is used by an non-distriptive distribution updator server. The updator server is opened only in the master instance, therefore you don't need to open the `37000` port, if the newly created EC2 instance is not the master server.
+The first is the `37820` port, that is used by an non-distriptive distribution updator server. The updator server is opened only in the master instance, therefore you don't need to open the `37820` port, if the newly created EC2 instance is not the master server.
 
-The second is the `37001` port, that is used by the backend server. Therefore, you've open the `37001` port whether the newly created EC2 instance is master or not.
+The second is the `37821` port, that is used by the backend server. Therefore, you've open the `37821` port whether the newly created EC2 instance is master or not.
 
   - port numbers
-    - `37000`
+    - `37820`
       - for non-distruptive distribution update system
       - configure it only for the master instance
-    - `37001`
+    - `37821`
       - for the backend server
       - it must be configured in the every instances
 

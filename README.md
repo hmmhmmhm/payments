@@ -134,9 +134,9 @@ SET GLOBAL sql_mode = 'ANSI,TRADITIONAL';
 ### 2.3. Server
 NodeJS 및 MariaDB 의 설치가 끝났다면, 바로 `payments-server` 구동을 시작할 수 있다. 
 
-제일 먼저 `git clone` 을 통하여, 결제 서버 프로젝트를 로컬 저장소에 복사하도록 한다. 그리고 해당 폴더로 이동하여 `npm install` 명령어를 실행함으로써, 통합 결제 서버를 구동하는 데 필요한 라이브러리들을 다운로드 한다. 그리고 `npm run build` 명령어를 입력하여, 결제 서버의 소스 코드를 컴파일한다.
+제일 먼저 `git clone` 을 통하여, 결제 서버 프로젝트를 로컬 저장소에 복사하도록 한다. 그리고 해당 폴더로 이동하여 `npm install` 명령어를 실행함으로써, 통합 결제 서버를 구동하는 데 필요한 라이브러리들을 다운로드 한다. 그리고 `npm run build` 명령어를 입력하여, 결제 서버의 소스 코드를 컴파일한다. 마지막으로 `npm run start` 명령어를 실행해주면, 결제 서버가 구동된다. 
 
-마지막으로 `npm run start` 명령어를 실행해주면, 결제 서버가 구동된다. 
+다만 `payments-server` 를 구동하기 전, 각각 [PaymentConfiguration](https://github.surf/samchon/payments/blob/HEAD/src/PaymentConfiguration.ts) 과 [PaymentGlobal](https://github.surf/samchon/payments/blob/HEAD/src/PaymentGlobal.ts) 클래스에 어떠한 속성들이 있는지 꼼꼼히 읽어보고, 귀하의 서비스에 알맞는 설정을 해 주도록 한다.
 
 ```bash
 # CLONE REPOSITORY
@@ -161,6 +161,8 @@ npm run stop
 
 따라서 귀하의 백엔드 서버가 TypeScript 내지 JavaScript 를 사용한다면, 테스트 자동화 프로그램을 구성함에 있어 github 저장소를 clone 하고 `payments-server` 를 별도 구동하기보다, 귀하의 백엔드 서버 테스트 프로그램에서 `payments-server` 모듈을 `import` 후 그것의 개설과 폐쇄를 직접 통제하는 것을 권장한다.
 
+그리고 이렇게 테스트 자동화 프로그램으로 `payments-server` 를 `import` 하여 사용할 때 역시, 각각 [PaymentConfiguration](https://github.surf/samchon/payments/blob/HEAD/src/PaymentConfiguration.ts) 과 [PaymentGlobal](https://github.surf/samchon/payments/blob/HEAD/src/PaymentGlobal.ts) 클래스에 어떠한 속성들이 있는지 꼼꼼히 읽어보고, 귀하의 서비스에 알맞는 설정을 해 주도록 한다.
+
 ```typescript
 // npm install --save-dev payments-server
 import payments from "payments-server";
@@ -168,8 +170,12 @@ import payments from "payments-server";
 async function main(): Promise<void>
 {
     // CONFIGURATION
-    payments.PaymentConfiguration.mode = "LOCAL";
-    payments.PaymentConfiguration.testing = true;
+    payments.PaymentGlobal.mode = "LOCAL";
+    payments.PaymentGlobal.testing = true;
+    payments.PaymentConfiguration.ENCRYPTION_PASSWORD = {
+        key: "SqwHmmXm1fZteI3URPtoyBWFJDMQ7FBQ",
+        iv: "9eSfjygAClnE1JJs"
+    };
 
     // BACKEND OPENING
     const backend: payments.PaymentBackend = new payments.PaymentBackend();

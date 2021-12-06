@@ -8,8 +8,13 @@ import FakeIamport from "fake-iamport-server";
 import FakeToss from "fake-toss-payments-server";
 
 import { PaymentConfiguration } from "./PaymentConfiguration";
-import { SGlobal } from "./SGlobal";
+import { PaymentGlobal } from "./PaymentGlobal";
 
+/**
+ * 통합 결제 백엔드 서버.
+ * 
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export class PaymentBackend
 {
     private application_?: nest.INestApplication;
@@ -17,6 +22,14 @@ export class PaymentBackend
 
     private fake_servers_: IFakeServer[] = [];
 
+    /**
+     * 서버 개설하기.
+     * 
+     * 통합 결제 백엔드 서버를 개설한다. 이 때 개설되는 서버의 종류는 
+     * {@link PaymentGlobal.mode} 를 따르며, 만일 개설되는 서버가 테스트 자동화 프로그램에
+     * 의하여 시작된 것이라면 ({@link PaymentGlobal.testing} 값이 true), 이와 연동하게 될
+     * 가짜 PG 결제사 서버들도 함께 개설한다.
+     */
     public async open(): Promise<void>
     {
         //----
@@ -42,7 +55,7 @@ export class PaymentBackend
         await this.application_.listen(PaymentConfiguration.API_PORT);
 
         // CONFIGURE FAKE SERVERS IF TESTING
-        if (SGlobal.testing === true)
+        if (PaymentGlobal.testing === true)
         {
             // OPEN FAKE SERVERS
             this.fake_servers_ = [
@@ -75,6 +88,9 @@ export class PaymentBackend
         });
     }
 
+    /**
+     * 개설한 서버 닫기.
+     */
     public async close(): Promise<void>
     {
         if (this.application_ === undefined)
@@ -85,9 +101,9 @@ export class PaymentBackend
         delete this.application_;
         
         // EXIT FROM THE CRITICAL-SERVER
-        if (await SGlobal.critical.is_loaded() === true)
+        if (await PaymentGlobal.critical.is_loaded() === true)
         {
-            const critical = await SGlobal.critical.get();
+            const critical = await PaymentGlobal.critical.get();
             await critical.close();
         }
 
