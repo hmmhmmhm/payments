@@ -1,4 +1,4 @@
- Payments Server
+# Payments Server
 ## 1. Outline
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/payments/blob/master/LICENSE)
 [![npm version](https://badge.fury.io/js/payments-api.svg)](https://www.npmjs.com/package/payments-api)
